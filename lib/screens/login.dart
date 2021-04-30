@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
     return LayoutBuilder(builder: (context, constraits) {
       return Center(
         child: Container(
-          width: constraits.maxWidth > 800
+          width: constraits.maxWidth > 1200
               ? MediaQuery.of(context).size.width / 3
               : MediaQuery.of(context).size.width,
           child: Card(
@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
       padding: EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
       child: TextField(
         controller: usernameController,
-        keyboardType: TextInputType.phone,
+        keyboardType: TextInputType.text,
         style: Palette.textFieldStyle,
         onChanged: (value) {},
         decoration: InputDecoration(
@@ -146,6 +146,7 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  
   }
 
   Widget _passTextFieldWidget() {

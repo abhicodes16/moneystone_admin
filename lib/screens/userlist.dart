@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:moneystone_admin/screens/addUser.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'package:moneystone_admin/style/constants.dart';
 import 'package:moneystone_admin/utils/common.dart';
@@ -32,6 +33,21 @@ class _AllUsersState extends State<AllUsers> {
       drawer: DrawerMenu(),
       appBar: AppBar(
         title: Text('All Users', style: Palette.appbarTitle),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.person_add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddUser(
+                          isUpdate: false,
+                        )),
+              );
+            },
+          ),
+          SizedBox(width: 20.0),
+        ],
       ),
       body: SingleChildScrollView(
         child: _allUserCardWidget(),
@@ -96,12 +112,20 @@ class _AllUsersState extends State<AllUsers> {
           SizedBox(height: 15.0),
 
           //Listview - All user list
-          isLoading
+          !isLoading
               ? ListView.separated(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount: 10,
+                  itemCount: userData.length,
                   itemBuilder: (BuildContext context, int index) {
+                    var seq = index + 1;
+                    var id = userData[index]['_id'];
+                    var phone = userData[index]['phone'];
+                    var name = userData[index]['name'] ?? '';
+                    var password = userData[index]['password'];
+                    var device = userData[index]['device_earnings'] ?? '';
+                    var team = userData[index]['team_earnings'] ?? '';
+                    var wallet = userData[index]['wallet'] ?? '';
                     return Row(
                       children: [
                         SizedBox(width: 10.0),
@@ -109,33 +133,58 @@ class _AllUsersState extends State<AllUsers> {
                           width: 50.0,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('1', style: Palette.title),
+                            child: Text('$seq', style: Palette.title),
                           ),
                         ),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('94095565656', style: Palette.title),
+                          child: Text('$phone', style: Palette.title),
                         )),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Abhi', style: Palette.title),
+                          child: Text('$name', style: Palette.title),
                         )),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('25', style: Palette.title),
+                          child: Text('$device', style: Palette.title),
                         )),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('0', style: Palette.title),
+                          child: Text('$team', style: Palette.title),
                         )),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('10', style: Palette.title),
+                            child: Text('$wallet', style: Palette.title),
+                          ),
+                        ),
+                        Container(
+                          child: InkWell(
+                            child: CircleAvatar(
+                              radius: 22.0,
+                              backgroundColor: Colors.amber[50],
+                              child: Icon(Icons.edit),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddUser(
+                                      isUpdate: true,
+                                      id: id,
+                                      phone: phone,
+                                      name: name,
+                                      pass: password,
+                                      device: device,
+                                      team: team,
+                                      wallet: wallet,
+                                    ),
+                                  ));
+                            },
                           ),
                         ),
                         SizedBox(width: 10.0),
@@ -163,7 +212,7 @@ class _AllUsersState extends State<AllUsers> {
 
     http.Response response = await http.get(
       Uri.parse(url),
-      headers: <String, String> {
+      headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
@@ -171,7 +220,7 @@ class _AllUsersState extends State<AllUsers> {
     if (response.statusCode == 200) {
       setState(() {
         isLoading = false;
-        //userData = json.decode(response.body);
+        userData = json.decode(response.body);
       });
     } else {
       setState(() {
@@ -179,7 +228,7 @@ class _AllUsersState extends State<AllUsers> {
       });
     }
 
-    print(response);
+    print(response.body);
 
     return 'Suceess';
   }

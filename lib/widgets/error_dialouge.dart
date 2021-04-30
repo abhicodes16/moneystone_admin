@@ -35,7 +35,7 @@ class ErrorDialouge {
                         },
                         shape: Palette.btnShape,
                         color: kThemeColor,
-                        child: Text('RETRY', style: Palette.whiteSubTitleB),
+                        child: Text('RETRY', style: Palette.subTitle2),
                       ),
                     )
                   ],

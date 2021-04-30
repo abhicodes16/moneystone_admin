@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:html';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker_web/image_picker_web.dart';
@@ -12,6 +14,7 @@ import 'package:moneystone_admin/widgets/customTextField.dart';
 import 'package:moneystone_admin/widgets/cutomePhoneTextField.dart';
 import 'package:moneystone_admin/widgets/error_dialouge.dart';
 import 'package:moneystone_admin/widgets/loadingDialog.dart';
+import 'package:flutter_web_image_picker/flutter_web_image_picker.dart';
 
 class AddProduct extends StatefulWidget {
   AddProduct({Key key}) : super(key: key);
@@ -42,6 +45,9 @@ class _AddProductState extends State<AddProduct> {
   String _imageInfo = '';
   final _pickedImages = <Image>[];
 
+  List<int> _selectedFile;
+  Uint8List _bytesData;
+
   Future<void> _pickImage() async {
     Image fromPicker =
         await ImagePickerWeb.getImage(outputType: ImageType.widget);
@@ -50,14 +56,17 @@ class _AddProductState extends State<AddProduct> {
       setState(() {
         _pickedImages.clear();
         _pickedImages.add(fromPicker);
+        print('From Picker ==== $fromPicker');
       });
     }
   }
 
   Future<void> _getImgFile() async {
     html.File infos = await ImagePickerWeb.getImage(outputType: ImageType.file);
-    setState(() => _imageInfo =
-        'Name: ${infos.name}\nRelative Path: ${infos.relativePath}');
+    setState(() {
+      _imageInfo = 'Name: ${infos.name}\nRelative Path: ${infos.relativePath}';
+      print('Image Info : $_imageInfo');
+    });
   }
 
   Future<void> _getImgInfo() async {
@@ -235,6 +244,7 @@ class _AddProductState extends State<AddProduct> {
     return MaterialButton(
       onPressed: () {
         //_uploadProductApi();
+        _getImgFile();
       },
       minWidth: 200.0,
       height: 55.0,
@@ -245,32 +255,47 @@ class _AddProductState extends State<AddProduct> {
     );
   }
 
+  Image image;
+
   Widget _imagePickerWidget() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Wrap(
-            // spacing: 15.0,
-            children: <Widget>[
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                switchInCurve: Curves.easeIn,
-                child: SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          _pickedImages == null ? 0 : _pickedImages.length,
-                      itemBuilder: (context, index) => _pickedImages[index]),
-                ),
-              ),
-            ],
+          // Wrap(
+          //   // spacing: 15.0,
+          //   children: <Widget>[
+          //     AnimatedSwitcher(
+          //       duration: const Duration(milliseconds: 300),
+          //       switchInCurve: Curves.easeIn,
+          //       child: SizedBox(
+          //         width: 300,
+          //         height: 300,
+          //         child: ListView.builder(
+          //             scrollDirection: Axis.horizontal,
+          //             itemCount:
+          //                 _pickedImages == null ? 0 : _pickedImages.length,
+          //             itemBuilder: (context, index) => _pickedImages[index]),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(child: image != null ? image : Text('No Image selected...')),
           ),
           MaterialButton(
-            onPressed: _pickImage,
+            //onPressed: _pickImage,
+            onPressed: () async {
+              final _image = await FlutterWebImagePicker.getImage;
+              
+              setState(() {
+                image = _image;
+              });
+              
+              
+            },
             child: Text('Pick Image'),
             color: Colors.amber[50],
             shape: Palette.btnShape,
@@ -314,11 +339,11 @@ class _AddProductState extends State<AddProduct> {
     request.fields["lenght"] = "$lenght";
     request.fields["width"] = "$width";
 
-
     if (_imageInfo == null) {
       _imageInfo = null;
     } else {
-      var userImage = await http.MultipartFile.fromPath("image", _imageInfo);
+      var userImage = await http.MultipartFile.fromPath(
+          "image", _pickedImages[0].toString());
       request.files.add(userImage);
     }
 

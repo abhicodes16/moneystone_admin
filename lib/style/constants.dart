@@ -2,10 +2,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // Colors
-const Color cThemeBlue = Color(0xFFfab802);
-const Color cThemePink = Color(0xFFfab802);
-const Color cDarkBlue = Color(0xFFfab802);
-const Color cDarkPink = Color(0xfffab802);
+const Color kThemeColor = Color(0xFFfab802);
+const Color kLightThemeColor = Color(0xFFfab802);
+const Color kDarkThemeColor = Color(0xFFfab802);
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kGrey = Color(0xFFebeced);
 Color kCanvasGrey = Colors.grey[50];
@@ -35,5 +34,9 @@ const String kGoogleLogoPath = 'assets/images/google_logo.png';
 const String kFontLato = 'Lato';
 const String kFontAvenir = 'Avenir';
 
+//currency
+const String kCurrency = '\u{20B9}';
+
 //margin padding
 const EdgeInsets kStandardMargin = EdgeInsets.fromLTRB(10.0, 3.0, 10.0, 3.0);
+const EdgeInsets kListMargin = EdgeInsets.fromLTRB(15.0, 6.0, 15.0, 6.0);

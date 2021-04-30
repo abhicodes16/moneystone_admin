@@ -9,13 +9,6 @@ class Palette {
     fontSize: 18.0,
   );
 
-  static TextStyle appbarTitleWhite = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w600,
-    fontSize: 18.0,
-    color: Colors.white,
-  );
-
   static TextStyle header = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w700,
@@ -32,17 +25,25 @@ class Palette {
     fontWeight: FontWeight.w400,
     fontSize: 12.0,
   );
-  static TextStyle subTitle2Black = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w400,
-    fontSize: 12.0,
-    color: Colors.black
-  );
 
   static TextStyle title2 = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w600,
     fontSize: 14.0,
+  );
+
+  static TextStyle themeTitle = TextStyle(
+    fontFamily: kFontLato,
+    fontWeight: FontWeight.w700,
+    color: kThemeColor,
+    fontSize: 18.0,
+  );
+
+  static TextStyle themeBtnText = TextStyle(
+    fontFamily: kFontLato,
+    fontWeight: FontWeight.w700,
+    color: kThemeColor,
+    fontSize: 15.0,
   );
 
   static TextStyle whiteHeader = TextStyle(
@@ -59,10 +60,10 @@ class Palette {
     color: Colors.white,
   );
 
-  static TextStyle whiteBtnTxt = TextStyle(
+  static TextStyle whiteHeader3 = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w700,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: Colors.white,
   );
 
@@ -85,39 +86,11 @@ class Palette {
     fontSize: 14.0,
     color: Colors.white,
   );
-
-  static TextStyle themeTxt = TextStyle(
+  static TextStyle whiteSubTitledashboard = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w500,
-    fontSize: 14.0,
-    color: cThemePink,
-  );
-  static TextStyle themeBlueTxt = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w500,
-    fontSize: 14.0,
-    color: cDarkBlue,
-  );
-
-  static TextStyle themeTxtPinkB = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w700,
-    fontSize: 14.0,
-    color: cThemePink,
-  );
-
-  static TextStyle themeTxtPink = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w700,
-    fontSize: 12.0,
-    color: cThemePink,
-  );
-
-  static TextStyle themeTxt2 = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w700,
-    fontSize: 16.0,
-    color: cThemeBlue,
+    fontSize: 11.0,
+    color: Colors.white,
   );
 
   static TextStyle whiteSubTitleS = TextStyle(
@@ -127,16 +100,37 @@ class Palette {
     color: Colors.white,
   );
 
+  static TextStyle whiteSubTitle = TextStyle(
+    fontFamily: kFontLato,
+    fontWeight: FontWeight.w500,
+    fontSize: 13.0,
+    color: Colors.white,
+  );
+
+  static TextStyle whiteSubTitle2 = TextStyle(
+    fontFamily: kFontLato,
+    fontWeight: FontWeight.w400,
+    fontSize: 12.0,
+    color: Colors.white,
+  );
+
   static TextStyle themeColorSubTitle = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w700,
     fontSize: 12.0,
-    color: cThemeBlue,
+    color: kThemeColor,
   );
 
   static TextStyle whiteTitle = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w500,
+    fontSize: 16.0,
+    color: Colors.white,
+  );
+
+  static TextStyle whiteTitleB = TextStyle(
+    fontFamily: kFontLato,
+    fontWeight: FontWeight.w700,
     fontSize: 16.0,
     color: Colors.white,
   );
@@ -148,29 +142,23 @@ class Palette {
     color: Colors.white,
   );
 
+  static TextStyle whiteBtn = TextStyle(
+    fontFamily: kFontLato,
+    fontWeight: FontWeight.w700,
+    fontSize: 15.0,
+    color: Colors.white,
+  );
+
+  static TextStyle blackBtn = TextStyle(
+    fontFamily: kFontLato,
+    fontWeight: FontWeight.w700,
+    fontSize: 15.0,
+    color: Colors.black,
+  );
+
   static TextStyle title = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w600,
-    fontSize: 16.0,
-  );
-  static TextStyle titleblack = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w600,
-    fontSize: 16.0,
-    color: Colors.black
-  );
-
-  static TextStyle titleTheme = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w600,
-    fontSize: 16.0,
-    color: cDarkBlue,
-  );
-
-  static TextStyle themeBtnTxt = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.bold,
-    color: cDarkPink,
     fontSize: 16.0,
   );
 
@@ -178,8 +166,12 @@ class Palette {
     fontFamily: kFontLato,
     fontWeight: FontWeight.w600,
     fontSize: 16.0,
-    color: cDarkPink,
+    color: kDarkThemeColor,
   );
+
+  static BoxDecoration unitGradient = BoxDecoration(
+      color: Colors.pink[50],
+      borderRadius: BorderRadius.all(Radius.circular(5.0)));
 
   static TextStyle listTileTitle =
       TextStyle(fontFamily: kFontLato, fontWeight: FontWeight.w600);
@@ -191,7 +183,10 @@ class Palette {
     gradient: LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
-      colors: [cDarkPink, cThemeBlue],
+      colors: [
+        kThemeColor,
+        kDarkThemeColor,
+      ],
     ),
   );
 
@@ -199,21 +194,22 @@ class Palette {
     gradient: LinearGradient(
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
-      colors: [cDarkPink, cThemeBlue],
+      colors: [
+        kDarkThemeColor,
+        kDarkThemeColor,
+        kThemeColor,
+        kThemeColor,
+      ],
     ),
   );
-
-  static BoxDecoration unitGradient = BoxDecoration(
-      color: Colors.pink[50],
-      borderRadius: BorderRadius.all(Radius.circular(5.0)));
 
   static LinearGradient headerGradientCont = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     colors: [
-      cDarkPink,
-      cDarkPink,
-      cThemeBlue,
+      kDarkThemeColor,
+      kDarkThemeColor,
+      kThemeColor,
     ],
   );
 
@@ -221,7 +217,7 @@ class Palette {
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0));
 
   static RoundedRectangleBorder btnShape =
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0));
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0));
   static RoundedRectangleBorder seachBoxCardShape =
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0));
 
@@ -243,61 +239,31 @@ class Palette {
     fontSize: 14.0,
   );
 
-  //List UI
+  static EdgeInsets fourlineListPadding =
+      EdgeInsets.fromLTRB(15.0, 3.0, 10.0, 2.0);
+
   static TextStyle listHeader = TextStyle(
-    fontFamily: kFontLato,
-    fontSize: 17.0,
-    fontWeight: FontWeight.w700,
-  );
+      fontFamily: kFontLato, fontSize: 17.0, fontWeight: FontWeight.w700);
 
-  static TextStyle listTitle = TextStyle(
+  static TextStyle trailing = TextStyle(
     fontFamily: kFontLato,
     fontWeight: FontWeight.w600,
-  );
-
-  static TextStyle listSubTitle = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w500,
-    fontSize: 12.0,
-  );
-  static TextStyle listTrailing1 = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w700,
-    color: cThemeBlue,
-  );
-  static TextStyle listTrailing = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w500,
-    fontSize: 12.0,
-  );
-  static TextStyle listTrailing2 = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w600,
-    fontSize: 10.0,
-    color: Colors.white,
-  );
-
-  static TextStyle statusClr = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w600,
-    fontSize: 12.0,
-    color: Colors.white,
-  );
-
-  static TextStyle listSubTrailing = TextStyle(
-    fontFamily: kFontLato,
-    fontWeight: FontWeight.w500,
-    fontSize: 10.0,
-  );
-
-  static TextStyle listFieldsText = TextStyle(
+    color: Colors.blue,
     fontSize: 14.0,
-    fontWeight: FontWeight.w500,
-    fontFamily: kFontLato,
   );
-  static TextStyle listBodyText = TextStyle(
-    fontSize: 14.0,
-    fontWeight: FontWeight.w700,
+
+  static TextStyle subTitleIncome = TextStyle(
+      fontFamily: kFontLato, fontWeight: FontWeight.w500, fontSize: 13.0);
+
+  static TextStyle greenTrailing = TextStyle(
+      fontFamily: kFontLato,
+      fontWeight: FontWeight.w600,
+      color: Colors.green[700],
+      fontSize: 16.0);
+
+  static TextStyle textFieldStyle = TextStyle(
     fontFamily: kFontLato,
+    fontWeight: FontWeight.w700,
+    fontSize: 16.0,
   );
 }

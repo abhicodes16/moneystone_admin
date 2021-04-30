@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moneystone_admin/screens/dashboard.dart';
+import 'package:moneystone_admin/screens/login.dart';
+import 'package:moneystone_admin/screens/userlist.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,12 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Money Stone',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: Dashborad(),
+      home: AllUsers(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:moneystone_admin/screens/user/addUser.dart';
+import 'package:moneystone_admin/screens/addUser.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'package:moneystone_admin/style/constants.dart';
 import 'package:moneystone_admin/utils/common.dart';

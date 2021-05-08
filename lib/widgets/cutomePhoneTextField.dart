@@ -21,13 +21,11 @@ class CustomPhoneTextField extends StatelessWidget {
           isDense: true,
           hintText: '$hint',
           hintStyle: TextStyle(
-            fontFamily: kFontLato,
             fontWeight: FontWeight.w400,
             fontSize: 16.0,
           ),
           prefixIcon: Text("     +91",
               style: TextStyle(
-                fontFamily: kFontLato,
                 fontWeight: FontWeight.w700,
                 fontSize: 15.5,
               )),

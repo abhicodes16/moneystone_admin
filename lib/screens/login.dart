@@ -87,7 +87,6 @@ class _LoginState extends State<Login> {
       child: Text(
         'Welcome to Money Stone',
         style: TextStyle(
-          fontFamily: kFontLato,
           fontWeight: FontWeight.bold,
           fontSize: 30.0,
         ),
@@ -107,13 +106,11 @@ class _LoginState extends State<Login> {
           isDense: true,
           hintText: 'Username',
           hintStyle: TextStyle(
-            fontFamily: kFontLato,
             fontWeight: FontWeight.w400,
             fontSize: 16.0,
           ),
           // prefixIcon: Text("     +91",
           //     style: TextStyle(
-          //       fontFamily: kFontLato,
           //       fontWeight: FontWeight.w700,
           //       fontSize: 15.5,
           //     )),
@@ -161,7 +158,6 @@ class _LoginState extends State<Login> {
           isDense: true,
           hintText: 'Password',
           hintStyle: TextStyle(
-            fontFamily: kFontLato,
             fontWeight: FontWeight.w400,
             fontSize: 16.0,
           ),

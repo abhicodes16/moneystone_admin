@@ -31,8 +31,6 @@ const Duration kLoginAnimationDuration = Duration(milliseconds: 1500);
 const String kGoogleLogoPath = 'assets/images/google_logo.png';
 
 // font name
-const String kFontLato = 'Lato';
-const String kFontAvenir = 'Avenir';
 
 //currency
 const String kCurrency = '\u{20B9}';

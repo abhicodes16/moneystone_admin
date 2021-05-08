@@ -61,27 +61,28 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Lato
-      fonts:
-        - asset: assets/fonts/Lato-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Lato-Regular.ttf
-          weight: 600
-        - asset: assets/fonts/Lato-Light.ttf
-          weight: 500
-        - asset: assets/fonts/Lato-Thin.ttf
-          weight: 400
-        - asset: assets/fonts/Lato-Italic.ttf
-          weight: 500
-          style: italic
-    - family: Avenir
-      fonts:
-        - asset: assets/fonts/Avenir-Medium.otf
-          weight: 500
-    - family: Spirax
-      fonts:
-        - asset: assets/fonts/Spirax-Regular.ttf
+  # fonts:
+  #   - family: Lato
+  #     fonts:
+  #       - asset: assets/fonts/Lato-Bold.ttf
+  #         weight: 700
+  #       - asset: assets/fonts/Lato-Regular.ttf
+  #         weight: 600
+  #       - asset: assets/fonts/Lato-Light.ttf
+  #         weight: 500
+  #       - asset: assets/fonts/Lato-Thin.ttf
+  #         weight: 400
+  #       - asset: assets/fonts/Lato-Italic.ttf
+  #         weight: 500
+  #         style: italic
+  #   - family: Avenir
+  #     fonts:
+  #       - asset: assets/fonts/Avenir-Medium.otf
+  #         weight: 500
+  #   - family: Spirax
+  #     fonts:
+  #       - asset: assets/fonts/Spirax-Regular.ttf
+  
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

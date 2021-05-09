@@ -102,6 +102,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
   flutter_web_image_picker:
     dependency: "direct main"
     description:
@@ -109,6 +110,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.2"
+=======
+>>>>>>> get products, orders
   flutter_web_plugins:
     dependency: transitive
     description: flutter

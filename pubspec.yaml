@@ -31,7 +31,6 @@ dependencies:
   peanut: ^4.0.1
   http: ^0.13.1
   image_picker_web: ^2.0.2
-  dio: ^4.0.0
   flutter_web_image_picker: ^0.0.2
 
 dev_dependencies:

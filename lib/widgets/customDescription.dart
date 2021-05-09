@@ -22,7 +22,6 @@ class CustomDescriptionTextField extends StatelessWidget {
           isDense: true,
           hintText: '$hint',
           hintStyle: TextStyle(
-            fontFamily: kFontLato,
             fontWeight: FontWeight.w400,
             fontSize: 16.0,
           ),

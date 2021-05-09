@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:moneystone_admin/screens/orders/orders.dart';
+import 'package:moneystone_admin/screens/product/addProduct.dart';
 import 'package:moneystone_admin/screens/dashboard.dart';
 import 'package:moneystone_admin/screens/login.dart';
-import 'package:moneystone_admin/screens/userlist.dart';
+import 'package:moneystone_admin/screens/product/product.dart';
+import 'package:moneystone_admin/screens/user/userlist.dart';
 import 'dart:convert';
 
 import 'package:moneystone_admin/style/Palette.dart';
@@ -67,7 +70,27 @@ class DrawerMenuItem extends State<DrawerMenu> {
                 context, MaterialPageRoute(builder: (context) => AllUsers())),
           ),
           Divider(),
-          SizedBox(height: MediaQuery.of(context).size.height / 2),
+          ListTile(
+            title: Text(
+              "Products",
+              style: _drawerText,
+            ),
+            leading: Icon(Icons.list_alt),
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Product())),
+          ),
+          Divider(),
+          ListTile(
+            title: Text(
+              "Orders",
+              style: _drawerText,
+            ),
+            leading: Icon(Icons.pending_actions_rounded),
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Orders())),
+          ),
+          Divider(),
+          SizedBox(height: MediaQuery.of(context).size.height / 2.5),
           Divider(),
           ListTile(
             title: Text(

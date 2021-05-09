@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:moneystone_admin/screens/userlist.dart';
+import 'package:moneystone_admin/screens/user/userlist.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'package:moneystone_admin/style/constants.dart';
 import 'package:moneystone_admin/utils/common.dart';
@@ -17,9 +17,9 @@ class AddUser extends StatefulWidget {
   final String phone;
   final String name;
   final String pass;
-  final String device;
-  final String team;
-  final String wallet;
+  final double device;
+  final double team;
+  final double wallet;
 
   AddUser(
       {this.isUpdate,
@@ -57,9 +57,9 @@ class _AddUserState extends State<AddUser> {
       phoneController.text = widget.phone;
       nameController.text = widget.name;
       passwordController.text = widget.pass;
-      deviceEarningContorller.text = widget.device;
-      teamEarningContorller.text = widget.team;
-      walletContorller.text = widget.wallet;
+      deviceEarningContorller.text = widget.device.toString();
+      teamEarningContorller.text = widget.team.toString();
+      walletContorller.text = widget.wallet.toString();
     } else {
       appbarTitle = 'Add User';
     }

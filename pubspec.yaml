@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   peanut: ^4.0.1
   http: ^0.13.1
+  image_picker_web: ^2.0.2
 
 dev_dependencies:
   flutter_test:

@@ -1,28 +1,27 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
-import 'package:moneystone_admin/screens/addUser.dart';
 import 'package:moneystone_admin/style/Palette.dart';
-import 'package:moneystone_admin/style/constants.dart';
 import 'package:moneystone_admin/utils/common.dart';
 import 'package:moneystone_admin/widgets/drawer.dart';
+import 'package:http/http.dart' as http;
 
-class AllUsers extends StatefulWidget {
-  AllUsers({Key key}) : super(key: key);
+class Orders extends StatefulWidget {
+  Orders({Key key}) : super(key: key);
 
   @override
-  _AllUsersState createState() => _AllUsersState();
+  _OrdersState createState() => _OrdersState();
 }
 
-class _AllUsersState extends State<AllUsers> {
-  List userData = [];
+class _OrdersState extends State<Orders> {
+  List productData = [];
   bool isLoading;
 
   @override
   void initState() {
     super.initState();
     isLoading = true;
-    this._getAllUserList();
+    this._getOrderList();
   }
 
   //---------------- build function ----------------//
@@ -32,30 +31,16 @@ class _AllUsersState extends State<AllUsers> {
     return Scaffold(
       drawer: DrawerMenu(),
       appBar: AppBar(
-        title: Text('All Users', style: Palette.appbarTitle),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.person_add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddUser(
-                          isUpdate: false,
-                        )),
-              );
-            },
-          ),
-          SizedBox(width: 20.0),
-        ],
+        title: Text('Product List', style: Palette.appbarTitle),
+        
       ),
       body: SingleChildScrollView(
-        child: _allUserCardWidget(),
+        child: _ordersCardWidget(),
       ),
     );
   }
 
-  Widget _allUserCardWidget() {
+  Widget _ordersCardWidget() {
     return Card(
       margin: EdgeInsets.all(30.0),
       shape: Palette.cardShape,
@@ -79,6 +64,17 @@ class _AllUsersState extends State<AllUsers> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text('No. ', style: Palette.title),
                       )),
+                  Container(
+                    width: 80.0,
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Image', style: Palette.title),
+                  ),
+                  SizedBox(width: 10.0),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('User Name', style: Palette.title),
+                  )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -87,23 +83,28 @@ class _AllUsersState extends State<AllUsers> {
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Name', style: Palette.title),
+                    child: Text('Order At', style: Palette.title),
                   )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('$kCurrency Device', style: Palette.title),
+                    child: Text('Product Name', style: Palette.title),
                   )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('$kCurrency Team', style: Palette.title),
+                    child: Text('Price', style: Palette.title),
                   )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('$kCurrency Wallet', style: Palette.title),
-                  )),
+                
+                  Container(
+                    child: InkWell(
+                      child: CircleAvatar(
+                        radius: 22.0,
+                        backgroundColor: Colors.amber[50],
+                      ),
+                      onTap: () {},
+                    ),
+                  ),
                   SizedBox(width: 10.0),
                 ],
               ),
@@ -116,16 +117,17 @@ class _AllUsersState extends State<AllUsers> {
               ? ListView.separated(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount: userData.length,
+                  itemCount: productData.length,
                   itemBuilder: (BuildContext context, int index) {
                     var seq = index + 1;
-                    var id = userData[index]['_id'];
-                    var phone = userData[index]['phone'];
-                    var name = userData[index]['name'] ?? '';
-                    var password = userData[index]['password'];
-                    var device = userData[index]['device_earnings'] ?? '';
-                    var team = userData[index]['team_earnings'] ?? '';
-                    var wallet = userData[index]['wallet'] ?? '';
+                    var id = productData[index]['_id'];
+                    var image = productData[index]['orderDetails']['image'];
+                    var userName = productData[index]['userName'];
+                    var userPhone = productData[index]['userPhone'];
+                    var orderDateTime = productData[index]['orderDateTime'];
+                    var productName = productData[index]['orderDetails']['productName'];
+                    var price = productData[index]['orderDetails']['price'] ?? '';
+
                     return Row(
                       children: [
                         SizedBox(width: 10.0),
@@ -136,30 +138,42 @@ class _AllUsersState extends State<AllUsers> {
                             child: Text('$seq', style: Palette.title),
                           ),
                         ),
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          height: 80.0,
+                          width: 80.0,
+                          child: Image.network('$image'),
+                        ),
+                        SizedBox(width: 10.0),
+
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('$phone', style: Palette.title),
+                          child: Text('$userName', style: Palette.title),
+                        )),
+
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('$productName', style: Palette.title),
                         )),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('$name', style: Palette.title),
+                          child: Text('$orderDateTime', style: Palette.title),
                         )),
+
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('$device', style: Palette.title),
+                          child: Text('$productName', style: Palette.title),
                         )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$team', style: Palette.title),
-                        )),
+                        
+                  
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('$wallet', style: Palette.title),
+                            child: Text('$price', style: Palette.title),
                           ),
                         ),
                         Container(
@@ -167,24 +181,9 @@ class _AllUsersState extends State<AllUsers> {
                             child: CircleAvatar(
                               radius: 22.0,
                               backgroundColor: Colors.amber[50],
-                              child: Icon(Icons.edit),
+                              child: Icon(Icons.more_vert_outlined),
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AddUser(
-                                      isUpdate: true,
-                                      id: id,
-                                      phone: phone,
-                                      name: name,
-                                      pass: password,
-                                      device: device,
-                                      team: team,
-                                      wallet: wallet,
-                                    ),
-                                  ));
-                            },
+                            onTap: () {},
                           ),
                         ),
                         SizedBox(width: 10.0),
@@ -207,8 +206,8 @@ class _AllUsersState extends State<AllUsers> {
     );
   }
 
-  Future<String> _getAllUserList() async {
-    final String url = Common.USER;
+  Future<String> _getOrderList() async {
+    final String url = Common.ORDER;
 
     http.Response response = await http.get(
       Uri.parse(url),
@@ -220,7 +219,7 @@ class _AllUsersState extends State<AllUsers> {
     if (response.statusCode == 200) {
       setState(() {
         isLoading = false;
-        userData = json.decode(response.body);
+        productData = json.decode(response.body);
       });
     } else {
       setState(() {

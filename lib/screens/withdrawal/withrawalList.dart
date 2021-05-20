@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:moneystone_admin/screens/withdrawal/withrawalDetails.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'package:moneystone_admin/style/constants.dart';
+import 'package:moneystone_admin/utils/common.dart';
+import 'package:moneystone_admin/widgets/drawer.dart';
+import 'package:http/http.dart' as http;
 
 class WithrawalList extends StatefulWidget {
   WithrawalList({Key key}) : super(key: key);
@@ -11,18 +17,19 @@ class WithrawalList extends StatefulWidget {
 
 class _WithrawalListState extends State<WithrawalList> {
   bool isLoading;
-    List withdrawalrData = [];
-
+  List withdrawalrData = [];
 
   @override
   void initState() {
     super.initState();
     isLoading = true;
+    this._withdrawalListApi();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: DrawerMenu(),
       appBar: AppBar(
         title: Text('Withrawals', style: Palette.appbarTitle),
       ),
@@ -76,11 +83,23 @@ class _WithrawalListState extends State<WithrawalList> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Date', style: Palette.title),
                   )),
-                  Expanded(
+                  Container(
+                      width: 100.0,
                       child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Status', style: Palette.title),
-                  )),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Status', style: Palette.title),
+                      )),
+                  SizedBox(width: 10.0),
+                  Container(
+                    child: InkWell(
+                      child: CircleAvatar(
+                        radius: 22.0,
+                        backgroundColor: Colors.amber[50],
+                        //child: Icon(Icons.more_vert_outlined),
+                      ),
+                      onTap: () {},
+                    ),
+                  ),
                   SizedBox(width: 10.0),
                 ],
               ),
@@ -97,20 +116,42 @@ class _WithrawalListState extends State<WithrawalList> {
                   itemBuilder: (BuildContext context, int index) {
                     var seq = index + 1;
                     var id = withdrawalrData[index]['_id'];
+
                     var amount = withdrawalrData[index]['amount'];
                     var status = withdrawalrData[index]['status'] ?? '';
                     var name = withdrawalrData[index]['userDetails']['name'];
                     var phone = withdrawalrData[index]['userDetails']['phone'];
-                    var tranactionDate = withdrawalrData[index]['userDetails']['phone'];
+                    var tranactionDate = withdrawalrData[index]['requestTime'];
 
-                    var accountName = withdrawalrData[index]['bankDetails']['accountName'];
-                    var mobile = withdrawalrData[index]['bankDetails']['mobile'];
-                    var email = withdrawalrData[index]['bankDetails']['email'];
-                    var bankAccount = withdrawalrData[index]['bankDetails']['bankAccount'];
-                    var bankName = withdrawalrData[index]['bankDetails']['bankName'];
-                    var upiId = withdrawalrData[index]['bankDetails']['upiId'];
-                    var ifsc = withdrawalrData[index]['bankDetails']['ifsc'];
-                    
+                    var accountName;
+                    var mobile;
+                    var email;
+                    var bankAccount;
+                    var bankName;
+                    var upiId;
+                    var ifsc;
+
+                    if (withdrawalrData[index]['bankDetails'] == null) {
+                      accountName = '-';
+                      mobile = '-';
+                      email = '-';
+                      bankAccount = '-';
+                      bankName = '-';
+                      upiId = '-';
+                      ifsc = '-';
+                    } else {
+                      accountName =
+                          withdrawalrData[index]['bankDetails']['accountName'];
+                      mobile = withdrawalrData[index]['bankDetails']['mobile'];
+                      email = withdrawalrData[index]['bankDetails']['email'];
+                      bankAccount =
+                          withdrawalrData[index]['bankDetails']['bankAccount'];
+                      bankName =
+                          withdrawalrData[index]['bankDetails']['bankName'];
+                      upiId = withdrawalrData[index]['bankDetails']['upiId'];
+                      ifsc = withdrawalrData[index]['bankDetails']['ifsc'];
+                    }
+
                     return Row(
                       children: [
                         SizedBox(width: 10.0),
@@ -141,12 +182,14 @@ class _WithrawalListState extends State<WithrawalList> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('$tranactionDate', style: Palette.title),
                         )),
-                        Expanded(
+                        Container(
+                          width: 100.0,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text('$status', style: Palette.title),
                           ),
                         ),
+                        SizedBox(width: 10.0),
                         Container(
                           child: InkWell(
                             child: CircleAvatar(
@@ -155,20 +198,26 @@ class _WithrawalListState extends State<WithrawalList> {
                               child: Icon(Icons.edit),
                             ),
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (context) => AddUser(
-                              //         isUpdate: true,
-                              //         id: id,
-                              //         phone: phone,
-                              //         name: name,
-                              //         pass: password,
-                              //         device: device,
-                              //         team: team,
-                              //         wallet: wallet,
-                              //       ),
-                              //     ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WithrawalDetails(
+                                    withrawalId: id,
+                                    name: name,
+                                    phone: phone,
+                                    amount: amount,
+                                    tranactionDate: tranactionDate,
+                                    status: status,
+                                    accountName: accountName,
+                                    mobile: mobile,
+                                    email: email,
+                                    bankAccount: bankAccount,
+                                    bankName: bankName,
+                                    upiId: upiId,
+                                    ifsc: ifsc,
+                                  ),
+                                ),
+                              ).then((value) => _withdrawalListApi());  
                             },
                           ),
                         ),
@@ -190,5 +239,31 @@ class _WithrawalListState extends State<WithrawalList> {
         ],
       ),
     );
+  }
+
+  Future<String> _withdrawalListApi() async {
+    final String url = Common.WITHRAWAL;
+
+    http.Response response = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        isLoading = false;
+        withdrawalrData = json.decode(response.body);
+      });
+    } else {
+      setState(() {
+        isLoading = true;
+      });
+    }
+
+    print(response.body);
+
+    return 'Suceess';
   }
 }

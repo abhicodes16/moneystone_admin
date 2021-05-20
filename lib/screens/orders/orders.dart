@@ -32,7 +32,6 @@ class _OrdersState extends State<Orders> {
       drawer: DrawerMenu(),
       appBar: AppBar(
         title: Text('Product List', style: Palette.appbarTitle),
-        
       ),
       body: SingleChildScrollView(
         child: _ordersCardWidget(),
@@ -95,7 +94,6 @@ class _OrdersState extends State<Orders> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Price', style: Palette.title),
                   )),
-                
                   Container(
                     child: InkWell(
                       child: CircleAvatar(
@@ -125,8 +123,10 @@ class _OrdersState extends State<Orders> {
                     var userName = productData[index]['userName'];
                     var userPhone = productData[index]['userPhone'];
                     var orderDateTime = productData[index]['orderDateTime'];
-                    var productName = productData[index]['orderDetails']['productName'];
-                    var price = productData[index]['orderDetails']['price'] ?? '';
+                    var productName =
+                        productData[index]['orderDetails']['productName'];
+                    var price =
+                        productData[index]['orderDetails']['price'] ?? '';
 
                     return Row(
                       children: [
@@ -145,31 +145,26 @@ class _OrdersState extends State<Orders> {
                           child: Image.network('$image'),
                         ),
                         SizedBox(width: 10.0),
-
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('$userName', style: Palette.title),
                         )),
-
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('$productName', style: Palette.title),
+                          child: Text('$userPhone', style: Palette.title),
                         )),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('$orderDateTime', style: Palette.title),
                         )),
-
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('$productName', style: Palette.title),
                         )),
-                        
-                  
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),

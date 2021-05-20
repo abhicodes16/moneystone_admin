@@ -3,7 +3,6 @@ import 'dart:html';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
@@ -14,7 +13,6 @@ import 'package:moneystone_admin/widgets/customTextField.dart';
 import 'package:moneystone_admin/widgets/cutomePhoneTextField.dart';
 import 'package:moneystone_admin/widgets/error_dialouge.dart';
 import 'package:moneystone_admin/widgets/loadingDialog.dart';
-import 'package:flutter_web_image_picker/flutter_web_image_picker.dart';
 
 class AddProduct extends StatefulWidget {
   AddProduct({Key key}) : super(key: key);
@@ -48,38 +46,38 @@ class _AddProductState extends State<AddProduct> {
   List<int> _selectedFile;
   Uint8List _bytesData;
 
-  Future<void> _pickImage() async {
-    Image fromPicker =
-        await ImagePickerWeb.getImage(outputType: ImageType.widget);
+  // Future<void> _pickImage() async {
+  //   Image fromPicker =
+  //       await ImagePickerWeb.getImage(outputType: ImageType.widget);
 
-    if (fromPicker != null) {
-      setState(() {
-        _pickedImages.clear();
-        _pickedImages.add(fromPicker);
-        print('From Picker ==== $fromPicker');
-      });
-    }
-  }
+  //   if (fromPicker != null) {
+  //     setState(() {
+  //       _pickedImages.clear();
+  //       _pickedImages.add(fromPicker);
+  //       print('From Picker ==== $fromPicker');
+  //     });
+  //   }
+  // }
 
-  Future<void> _getImgFile() async {
-    html.File infos = await ImagePickerWeb.getImage(outputType: ImageType.file);
-    setState(() {
-      _imageInfo = 'Name: ${infos.name}\nRelative Path: ${infos.relativePath}';
-      print('Image Info : $_imageInfo');
-    });
-  }
+  // Future<void> _getImgFile() async {
+  //   html.File infos = await ImagePickerWeb.getImage(outputType: ImageType.file);
+  //   setState(() {
+  //     _imageInfo = 'Name: ${infos.name}\nRelative Path: ${infos.relativePath}';
+  //     print('Image Info : $_imageInfo');
+  //   });
+  // }
 
-  Future<void> _getImgInfo() async {
-    final infos = await ImagePickerWeb.getImageInfo;
-    setState(() {
-      _pickedImages.clear();
-      _pickedImages.add(Image.memory(
-        infos.data,
-        semanticLabel: infos.fileName,
-      ));
-      _imageInfo = '${infos.toJson()}';
-    });
-  }
+  // Future<void> _getImgInfo() async {
+  //   final infos = await ImagePickerWeb.getImageInfo;
+  //   setState(() {
+  //     _pickedImages.clear();
+  //     _pickedImages.add(Image.memory(
+  //       infos.data,
+  //       semanticLabel: infos.fileName,
+  //     ));
+  //     _imageInfo = '${infos.toJson()}';
+  //   });
+  // }
 
   @override
   void initState() {
@@ -244,7 +242,7 @@ class _AddProductState extends State<AddProduct> {
     return MaterialButton(
       onPressed: () {
         //_uploadProductApi();
-        _getImgFile();
+        //_getImgFile();
       },
       minWidth: 200.0,
       height: 55.0,
@@ -288,11 +286,11 @@ class _AddProductState extends State<AddProduct> {
           MaterialButton(
             //onPressed: _pickImage,
             onPressed: () async {
-              final _image = await FlutterWebImagePicker.getImage;
+              // final _image = await FlutterWebImagePicker.getImage;
               
-              setState(() {
-                image = _image;
-              });
+              // setState(() {
+              //   image = _image;
+              // });
               
               
             },

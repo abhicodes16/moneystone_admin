@@ -43,9 +43,10 @@ class _AddUserState extends State<AddUser> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController deviceEarningContorller = TextEditingController();
-  TextEditingController teamEarningContorller = TextEditingController();
-  TextEditingController walletContorller = TextEditingController();
+
+  var _deviceEarnings;
+  var _teamEarnings;
+  var _wallet;
 
   var appbarTitle;
 
@@ -57,9 +58,9 @@ class _AddUserState extends State<AddUser> {
       phoneController.text = widget.phone;
       nameController.text = widget.name;
       passwordController.text = widget.pass;
-      deviceEarningContorller.text = widget.device.toString();
-      teamEarningContorller.text = widget.team.toString();
-      walletContorller.text = widget.wallet.toString();
+      _deviceEarnings = widget.device.toString();
+      _teamEarnings = widget.team.toString();
+      _wallet = widget.wallet.toString();
     } else {
       appbarTitle = 'Add User';
     }
@@ -124,9 +125,15 @@ class _AddUserState extends State<AddUser> {
                               style: Palette.title,
                             ),
                           ),
-                          CustomTextField(
-                            controller: deviceEarningContorller,
-                            hint: '0.0',
+                          Card(
+                            color: Colors.amber[100],
+                            elevation: 0.0,
+                            child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '$_deviceEarnings',
+                                  style: Palette.title,
+                                )),
                           )
                         ],
                       ),
@@ -141,9 +148,15 @@ class _AddUserState extends State<AddUser> {
                               style: Palette.title,
                             ),
                           ),
-                          CustomTextField(
-                            controller: teamEarningContorller,
-                            hint: '0.0',
+                          Card(
+                            color: Colors.amber[100],
+                            elevation: 0.0,
+                            child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '$_teamEarnings',
+                                  style: Palette.title,
+                                )),
                           )
                         ],
                       ),
@@ -158,9 +171,15 @@ class _AddUserState extends State<AddUser> {
                               style: Palette.title,
                             ),
                           ),
-                          CustomTextField(
-                            controller: walletContorller,
-                            hint: '0.0',
+                          Card(
+                            color: Colors.amber[100],
+                            elevation: 0.0,
+                            child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '$_wallet',
+                                  style: Palette.title,
+                                )),
                           )
                         ],
                       ),
@@ -247,9 +266,6 @@ class _AddUserState extends State<AddUser> {
         'phone': phoneController.text,
         "password": passwordController.text,
         'name': nameController.text,
-        'device_earnings': deviceEarningContorller.text,
-        'team_earnings': teamEarningContorller.text,
-        'wallet': walletContorller.text
       }),
     );
     Map<String, dynamic> decode = json.decode(response.body);
@@ -288,9 +304,9 @@ class _AddUserState extends State<AddUser> {
         'phone': phoneController.text,
         "password": passwordController.text,
         'name': nameController.text,
-        'device_earnings': deviceEarningContorller.text,
-        'team_earnings': teamEarningContorller.text,
-        'wallet': walletContorller.text
+        'device_earnings': _deviceEarnings,
+        'team_earnings': _teamEarnings,
+        'wallet': _wallet
       }),
     );
     Map<String, dynamic> decode = json.decode(response.body);

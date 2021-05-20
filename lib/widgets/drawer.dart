@@ -5,6 +5,7 @@ import 'package:moneystone_admin/screens/dashboard.dart';
 import 'package:moneystone_admin/screens/login.dart';
 import 'package:moneystone_admin/screens/product/product.dart';
 import 'package:moneystone_admin/screens/user/userlist.dart';
+import 'package:moneystone_admin/screens/withdrawal/withrawalList.dart';
 import 'dart:convert';
 
 import 'package:moneystone_admin/style/Palette.dart';
@@ -50,14 +51,24 @@ class DrawerMenuItem extends State<DrawerMenu> {
               style: Palette.title,
             ),
           ),
+          // ListTile(
+          //   title: Text(
+          //     "Dashboard",
+          //     style: _drawerText,
+          //   ),
+          //   leading: Icon(Icons.dashboard_outlined),
+          //   onTap: () => Navigator.push(
+          //       context, MaterialPageRoute(builder: (context) => Dashborad())),
+          // ),
+          // Divider(),
           ListTile(
             title: Text(
-              "Dashboard",
+              "Withrawal",
               style: _drawerText,
             ),
             leading: Icon(Icons.dashboard_outlined),
             onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Dashborad())),
+                context, MaterialPageRoute(builder: (context) => WithrawalList())),
           ),
           Divider(),
           ListTile(

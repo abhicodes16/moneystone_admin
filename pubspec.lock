@@ -70,14 +70,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
-  dio:
-    dependency: "direct main"
-    description:
-      name: dio
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
+    version: "1.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -91,7 +84,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.0"
+    version: "6.1.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -102,16 +95,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-  flutter_web_image_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_web_image_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
-=======
->>>>>>> get products, orders
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -137,7 +120,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.2"
+    version: "0.13.3"
   http_parser:
     dependency: transitive
     description:

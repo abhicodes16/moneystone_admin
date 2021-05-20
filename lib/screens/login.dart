@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moneystone_admin/screens/dashboard.dart';
+import 'package:moneystone_admin/screens/withdrawal/withrawalList.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'package:moneystone_admin/style/constants.dart';
 import 'package:moneystone_admin/widgets/error_dialouge.dart';
@@ -18,6 +19,13 @@ class _LoginState extends State<Login> {
   bool _obsecurePass = true;
 
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+
+  @override
+  void initState() {
+    super.initState();
+    usernameController.text = 'admin';
+    passwordController.text = 'Admin@12345';
+  }
 
   //Admin - Username & Password
   var adminUsername = "admin";
@@ -143,7 +151,6 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  
   }
 
   Widget _passTextFieldWidget() {
@@ -216,7 +223,7 @@ class _LoginState extends State<Login> {
               passwordController.text == adminPassword) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => Dashborad()),
+              MaterialPageRoute(builder: (context) => WithrawalList()),
               (route) => false,
             );
           } else {

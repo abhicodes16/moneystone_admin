@@ -104,16 +104,16 @@ class _AllUsersState extends State<AllUsers> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text('$kCurrency Wallet', style: Palette.title),
                   )),
-                  Container(
-                    child: InkWell(
-                      child: CircleAvatar(
-                        radius: 22.0,
-                        backgroundColor: Colors.amber[50],
-                        //child: Icon(Icons.more_vert_outlined),
+                    Container(
+                      child: InkWell(
+                        child: CircleAvatar(
+                          radius: 22.0,
+                          backgroundColor: Colors.amber[50],
+                          //child: Icon(Icons.more_vert_outlined),
+                        ),
+                        onTap: () {},
                       ),
-                      onTap: () {},
                     ),
-                  ),
                   SizedBox(width: 10.0),
                 ],
               ),

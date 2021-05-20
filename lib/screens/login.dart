@@ -23,8 +23,8 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    usernameController.text = 'admin';
-    passwordController.text = 'Admin@12345';
+    // usernameController.text = 'admin';
+    // passwordController.text = 'Admin@12345';
   }
 
   //Admin - Username & Password

@@ -15,19 +15,69 @@ class AllUsers extends StatefulWidget {
 }
 
 class _AllUsersState extends State<AllUsers> {
-  List userData = [];
+  List<dynamic> userData = [];
+  List<dynamic> filterlist = [];
   bool isLoading;
+
+  TextEditingController controller = TextEditingController();
+  String filter = "";
 
   @override
   void initState() {
     super.initState();
+
+    List<dynamic> tmpList = List<dynamic>();
+    for (int i = 0; i < userData.length; i++) {
+      tmpList.add(userData[i]);
+    }
+    setState(() {
+      userData = tmpList;
+      filterlist = userData;
+
+      controller.addListener(() {
+        if (controller.text.isEmpty) {
+          setState(() {
+            filter = "";
+            filterlist = userData;
+          });
+        } else {
+          setState(() {
+            filter = controller.text;
+          });
+        }
+      });
+    });
+
     isLoading = true;
     this._getAllUserList();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   //---------------- build function ----------------//
   @override
   Widget build(BuildContext context) {
+    //search function
+    if ((filter.isNotEmpty)) {
+      List<dynamic> tmpList = List<dynamic>();
+      for (int i = 0; i < filterlist.length; i++) {
+        if (filterlist[i]['name']
+            .toLowerCase()
+            .contains(filter.toLowerCase())) {
+          tmpList.add(filterlist[i]);
+        } else if (filterlist[i]['phone']
+            .toLowerCase()
+            .contains(filter.toLowerCase())) {
+          tmpList.add(filterlist[i]);
+        }
+      }
+      filterlist = tmpList;
+    }
+
     //---------------- Scaffold ----------------//
     return Scaffold(
       drawer: DrawerMenu(),
@@ -40,9 +90,10 @@ class _AllUsersState extends State<AllUsers> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddUser(
-                          isUpdate: false,
-                        )),
+                  builder: (context) => AddUser(
+                    isUpdate: false,
+                  ),
+                ),
               );
             },
           ),
@@ -50,7 +101,42 @@ class _AllUsersState extends State<AllUsers> {
         ],
       ),
       body: SingleChildScrollView(
-        child: _allUserCardWidget(),
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: kStandardMargin * 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  margin: EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.black38.withAlpha(10),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: controller,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.search),
+                            hintText: "Search",
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            _allUserCardWidget(),
+          ],
+        ),
+        //child: _allUserCardWidget(),
       ),
     );
   }
@@ -104,16 +190,16 @@ class _AllUsersState extends State<AllUsers> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text('$kCurrency Wallet', style: Palette.title),
                   )),
-                    Container(
-                      child: InkWell(
-                        child: CircleAvatar(
-                          radius: 22.0,
-                          backgroundColor: Colors.amber[50],
-                          //child: Icon(Icons.more_vert_outlined),
-                        ),
-                        onTap: () {},
+                  Container(
+                    child: InkWell(
+                      child: CircleAvatar(
+                        radius: 22.0,
+                        backgroundColor: Colors.amber[50],
+                        //child: Icon(Icons.more_vert_outlined),
                       ),
+                      onTap: () {},
                     ),
+                  ),
                   SizedBox(width: 10.0),
                 ],
               ),
@@ -126,16 +212,16 @@ class _AllUsersState extends State<AllUsers> {
               ? ListView.separated(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount: userData.length,
+                  itemCount: userData != null ? filterlist.length : 0,
                   itemBuilder: (BuildContext context, int index) {
                     var seq = index + 1;
-                    var id = userData[index]['_id'];
-                    var phone = userData[index]['phone'];
-                    var name = userData[index]['name'] ?? '';
-                    var password = userData[index]['password'];
-                    var device = userData[index]['device_earnings'] ?? '';
-                    var team = userData[index]['team_earnings'] ?? '';
-                    var wallet = userData[index]['wallet'] ?? '';
+                    var id = filterlist[index]['_id'];
+                    var phone = filterlist[index]['phone'];
+                    var name = filterlist[index]['name'] ?? '';
+                    var password = filterlist[index]['password'];
+                    var device = filterlist[index]['device_earnings'] ?? '';
+                    var team = filterlist[index]['team_earnings'] ?? '';
+                    var wallet = filterlist[index]['wallet'] ?? '';
                     return Row(
                       children: [
                         SizedBox(width: 10.0),
@@ -231,6 +317,7 @@ class _AllUsersState extends State<AllUsers> {
       setState(() {
         isLoading = false;
         userData = json.decode(response.body);
+        filterlist = userData;
       });
     } else {
       setState(() {

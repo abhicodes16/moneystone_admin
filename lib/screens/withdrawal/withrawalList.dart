@@ -18,23 +18,108 @@ class WithrawalList extends StatefulWidget {
 class _WithrawalListState extends State<WithrawalList> {
   bool isLoading;
   List withdrawalrData = [];
+  List<dynamic> filterlist = [];
+
+  TextEditingController controller = TextEditingController();
+  String filter = "";
 
   @override
   void initState() {
     super.initState();
+
+    List<dynamic> tmpList = List<dynamic>();
+    for (int i = 0; i < withdrawalrData.length; i++) {
+      tmpList.add(withdrawalrData[i]);
+    }
+    setState(() {
+      withdrawalrData = tmpList;
+      filterlist = withdrawalrData;
+
+      controller.addListener(() {
+        if (controller.text.isEmpty) {
+          setState(() {
+            filter = "";
+            filterlist = withdrawalrData;
+          });
+        } else {
+          setState(() {
+            filter = controller.text;
+          });
+        }
+      });
+    });
+
     isLoading = true;
     this._withdrawalListApi();
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    //search function
+    if ((filter.isNotEmpty)) {
+      List<dynamic> tmpList = List<dynamic>();
+      for (int i = 0; i < filterlist.length; i++) {
+        if (filterlist[i]['userDetails']['name']
+            .toLowerCase()
+            .contains(filter.toLowerCase())) {
+          tmpList.add(filterlist[i]);
+        } else if (filterlist[i]['userDetails']['phone']
+            .toLowerCase()
+            .contains(filter.toLowerCase())) {
+          tmpList.add(filterlist[i]);
+        }
+      }
+      filterlist = tmpList;
+    }
+
     return Scaffold(
       drawer: DrawerMenu(),
       appBar: AppBar(
         title: Text('Withrawals', style: Palette.appbarTitle),
       ),
       body: SingleChildScrollView(
-        child: _allWidthrawalListWidget(),
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: kStandardMargin * 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  margin: EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.black38.withAlpha(10),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: controller,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.search),
+                            hintText: "Search",
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            _allWidthrawalListWidget(),
+          ],
+        ),
+        //child: _allWidthrawalListWidget(),
       ),
     );
   }
@@ -112,16 +197,16 @@ class _WithrawalListState extends State<WithrawalList> {
               ? ListView.separated(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount: withdrawalrData.length,
+                  itemCount: withdrawalrData != null ? filterlist.length : 0,
                   itemBuilder: (BuildContext context, int index) {
                     var seq = index + 1;
                     var id = withdrawalrData[index]['_id'];
 
-                    var amount = withdrawalrData[index]['amount'];
-                    var status = withdrawalrData[index]['status'] ?? '';
-                    var name = withdrawalrData[index]['userDetails']['name'];
-                    var phone = withdrawalrData[index]['userDetails']['phone'];
-                    var tranactionDate = withdrawalrData[index]['requestTime'];
+                    var amount = filterlist[index]['amount'];
+                    var status = filterlist[index]['status'] ?? '';
+                    var name = filterlist[index]['userDetails']['name'];
+                    var phone = filterlist[index]['userDetails']['phone'];
+                    var tranactionDate = filterlist[index]['requestTime'];
 
                     var accountName;
                     var mobile;
@@ -217,7 +302,7 @@ class _WithrawalListState extends State<WithrawalList> {
                                     ifsc: ifsc,
                                   ),
                                 ),
-                              ).then((value) => _withdrawalListApi());  
+                              ).then((value) => _withdrawalListApi());
                             },
                           ),
                         ),
@@ -255,6 +340,7 @@ class _WithrawalListState extends State<WithrawalList> {
       setState(() {
         isLoading = false;
         withdrawalrData = json.decode(response.body);
+        filterlist = withdrawalrData;
       });
     } else {
       setState(() {

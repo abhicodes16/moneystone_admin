@@ -43,10 +43,9 @@ class _AddUserState extends State<AddUser> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  var _deviceEarnings;
-  var _teamEarnings;
-  var _wallet;
+  TextEditingController deviceEarningController = TextEditingController();
+  TextEditingController teamEarningController = TextEditingController();
+  TextEditingController walletController = TextEditingController();
 
   var appbarTitle;
 
@@ -58,9 +57,9 @@ class _AddUserState extends State<AddUser> {
       phoneController.text = widget.phone;
       nameController.text = widget.name;
       passwordController.text = widget.pass;
-      _deviceEarnings = widget.device.toString();
-      _teamEarnings = widget.team.toString();
-      _wallet = widget.wallet.toString();
+      deviceEarningController.text = widget.device.toString();
+      teamEarningController.text = widget.team.toString();
+      walletController.text = widget.wallet.toString();
     } else {
       appbarTitle = 'Add User';
     }
@@ -125,16 +124,10 @@ class _AddUserState extends State<AddUser> {
                               style: Palette.title,
                             ),
                           ),
-                          Card(
-                            color: Colors.amber[100],
-                            elevation: 0.0,
-                            child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  '$_deviceEarnings',
-                                  style: Palette.title,
-                                )),
-                          )
+                          CustomTextField(
+                            controller: deviceEarningController,
+                            hint: 'Device Earnings',
+                          ),
                         ],
                       ),
                     ),
@@ -148,16 +141,10 @@ class _AddUserState extends State<AddUser> {
                               style: Palette.title,
                             ),
                           ),
-                          Card(
-                            color: Colors.amber[100],
-                            elevation: 0.0,
-                            child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  '$_teamEarnings',
-                                  style: Palette.title,
-                                )),
-                          )
+                          CustomTextField(
+                            controller: teamEarningController,
+                            hint: 'Team Earnings',
+                          ),
                         ],
                       ),
                     ),
@@ -167,20 +154,14 @@ class _AddUserState extends State<AddUser> {
                           Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Wallet Earning',
+                              'Wallet',
                               style: Palette.title,
                             ),
                           ),
-                          Card(
-                            color: Colors.amber[100],
-                            elevation: 0.0,
-                            child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  '$_wallet',
-                                  style: Palette.title,
-                                )),
-                          )
+                          CustomTextField(
+                            controller: walletController,
+                            hint: 'Wallet',
+                          ),
                         ],
                       ),
                     ),
@@ -293,6 +274,10 @@ class _AddUserState extends State<AddUser> {
   Future<String> _updateUserApi() async {
     LoadingDialog.showLoadingDialog(context, _keyLoader);
 
+    double _deviceEarnings = double.parse(deviceEarningController.text);
+    double _teamEarnings = double.parse(teamEarningController.text);
+    double _wallet = double.parse(walletController.text);
+
     final String url = Common.USER + '/${widget.id}';
 
     http.Response response = await http.patch(
@@ -300,7 +285,7 @@ class _AddUserState extends State<AddUser> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
+      body: jsonEncode(<String, dynamic>{
         'phone': phoneController.text,
         "password": passwordController.text,
         'name': nameController.text,

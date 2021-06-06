@@ -212,7 +212,7 @@ class _AllUsersState extends State<AllUsers> {
               ? ListView.separated(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount: userData != null ? userData.length : 0,
+                  itemCount: userData != null ? filterlist.length : 0,
                   itemBuilder: (BuildContext context, int index) {
                     var seq = index + 1;
                     var id = filterlist[index]['_id'];

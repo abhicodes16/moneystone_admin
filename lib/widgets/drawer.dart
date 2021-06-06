@@ -4,6 +4,7 @@ import 'package:moneystone_admin/screens/product/addProduct.dart';
 import 'package:moneystone_admin/screens/dashboard.dart';
 import 'package:moneystone_admin/screens/login.dart';
 import 'package:moneystone_admin/screens/product/product.dart';
+import 'package:moneystone_admin/screens/recharge/recharge.dart';
 import 'package:moneystone_admin/screens/user/userlist.dart';
 import 'package:moneystone_admin/screens/withdrawal/withrawalList.dart';
 import 'dart:convert';
@@ -89,6 +90,16 @@ class DrawerMenuItem extends State<DrawerMenu> {
             leading: Icon(Icons.list_alt),
             onTap: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Product())),
+          ),
+          Divider(),
+          ListTile(
+            title: Text(
+              "Recharge",
+              style: _drawerText,
+            ),
+            leading: Icon(Icons.money_sharp),
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Recharge())),
           ),
           Divider(),
           ListTile(

@@ -4,20 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'package:moneystone_admin/style/constants.dart';
 import 'package:moneystone_admin/utils/common.dart';
-import 'package:moneystone_admin/widgets/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:moneystone_admin/widgets/drawer.dart';
 
-class Orders extends StatefulWidget {
-  Orders({Key key}) : super(key: key);
+class Recharge extends StatefulWidget {
+  Recharge({Key key}) : super(key: key);
 
   @override
-  _OrdersState createState() => _OrdersState();
+  _RechargeState createState() => _RechargeState();
 }
 
-class _OrdersState extends State<Orders> {
-  List productData = [];
+class _RechargeState extends State<Recharge> {
+  List rechargeData = [];
   bool isLoading;
-
   List<dynamic> filterlist = [];
 
   TextEditingController controller = TextEditingController();
@@ -26,18 +25,18 @@ class _OrdersState extends State<Orders> {
   @override
   void initState() {
     List<dynamic> tmpList = List<dynamic>();
-    for (int i = 0; i < productData.length; i++) {
-      tmpList.add(productData[i]);
+    for (int i = 0; i < rechargeData.length; i++) {
+      tmpList.add(rechargeData[i]);
     }
     setState(() {
-      productData = tmpList;
-      filterlist = productData;
+      rechargeData = tmpList;
+      filterlist = rechargeData;
 
       controller.addListener(() {
         if (controller.text.isEmpty) {
           setState(() {
             filter = "";
-            filterlist = productData;
+            filterlist = rechargeData;
           });
         } else {
           setState(() {
@@ -48,20 +47,21 @@ class _OrdersState extends State<Orders> {
     });
     super.initState();
     isLoading = true;
-    this._getOrderList();
+    this._getRechargeList();
   }
 
   //---------------- build function ----------------//
   @override
   Widget build(BuildContext context) {
+    //search function
     if ((filter.isNotEmpty)) {
       List<dynamic> tmpList = List<dynamic>();
       for (int i = 0; i < filterlist.length; i++) {
-        if (filterlist[i]['userName']
+        if (filterlist[i]['userDetails']['name']
             .toLowerCase()
             .contains(filter.toLowerCase())) {
           tmpList.add(filterlist[i]);
-        } else if (filterlist[i]['userPhone']
+        } else if (filterlist[i]['userDetails']['phone']
             .toLowerCase()
             .contains(filter.toLowerCase())) {
           tmpList.add(filterlist[i]);
@@ -70,11 +70,10 @@ class _OrdersState extends State<Orders> {
       filterlist = tmpList;
     }
 
-    //---------------- Scaffold ----------------//
     return Scaffold(
       drawer: DrawerMenu(),
       appBar: AppBar(
-        title: Text('Product List', style: Palette.appbarTitle),
+        title: Text('Recharge List', style: Palette.appbarTitle),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -109,21 +108,22 @@ class _OrdersState extends State<Orders> {
                 ),
               ),
             ),
-            _ordersCardWidget(),
+            _rechargeCardWidget(),
           ],
         ),
+        //child: _allWidthrawalListWidget(),
       ),
     );
   }
 
-  Widget _ordersCardWidget() {
+  Widget _rechargeCardWidget() {
     return Card(
       margin: EdgeInsets.all(30.0),
       shape: Palette.cardShape,
       shadowColor: Colors.amber[700],
       elevation: 18.0,
       child: Column(
-        children: [
+        children: <Widget>[
           Card(
             elevation: 0.0,
             margin: EdgeInsets.zero,
@@ -132,7 +132,7 @@ class _OrdersState extends State<Orders> {
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Row(
-                children: [
+                children: <Widget>[
                   SizedBox(width: 10.0),
                   Container(
                       width: 50.0,
@@ -140,17 +140,6 @@ class _OrdersState extends State<Orders> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text('No. ', style: Palette.title),
                       )),
-                  Container(
-                    width: 80.0,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Image', style: Palette.title),
-                  ),
-                  SizedBox(width: 10.0),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('User Name', style: Palette.title),
-                  )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -159,23 +148,25 @@ class _OrdersState extends State<Orders> {
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Order At', style: Palette.title),
+                    child: Text('Name', style: Palette.title),
                   )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Product Name', style: Palette.title),
+                    child: Text('$kCurrency Amount', style: Palette.title),
                   )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Price', style: Palette.title),
+                    child: Text('Date', style: Palette.title),
                   )),
+                  SizedBox(width: 10.0),
                   Container(
                     child: InkWell(
                       child: CircleAvatar(
                         radius: 22.0,
                         backgroundColor: Colors.amber[50],
+                        //child: Icon(Icons.more_vert_outlined),
                       ),
                       onTap: () {},
                     ),
@@ -185,25 +176,24 @@ class _OrdersState extends State<Orders> {
               ),
             ),
           ),
+
           SizedBox(height: 15.0),
 
-          //Listview - All user list
-          !isLoading
-              ? ListView.separated(
-                  primary: false,
+          !isLoading 
+          ? ListView.separated(
+            primary: false,
                   shrinkWrap: true,
-                  itemCount: productData != null ? filterlist.length : 0,
+                  itemCount: rechargeData != null ? filterlist.length : 0,
                   itemBuilder: (BuildContext context, int index) {
-                    var seq = index + 1;
+
+                    var seq = index + 1;  
                     var id = filterlist[index]['_id'];
-                    var image = filterlist[index]['orderDetails']['image'];
-                    var userName = filterlist[index]['userName'];
-                    var userPhone = filterlist[index]['userPhone'];
-                    var orderDateTime = filterlist[index]['orderDateTime'];
-                    var productName =
-                        filterlist[index]['orderDetails']['productName'];
-                    var price =
-                        filterlist[index]['orderDetails']['price'] ?? '';
+
+                    var amount = filterlist[index]['amount'];
+                    var status = filterlist[index]['status'] ?? '';
+                    var name = filterlist[index]['userDetails']['name'];
+                    var phone = filterlist[index]['userDetails']['phone'];
+                    var tranactionDate = filterlist[index]['transactionDate'];
 
                     return Row(
                       children: [
@@ -215,58 +205,35 @@ class _OrdersState extends State<Orders> {
                             child: Text('$seq', style: Palette.title),
                           ),
                         ),
-                        Container(
+                        Expanded(
+                            child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          height: 80.0,
-                          width: 80.0,
-                          child: Image.network('$image'),
-                        ),
+                          child: Text('$phone', style: Palette.title),
+                        )),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('$name', style: Palette.title),
+                        )),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('$amount', style: Palette.title),
+                        )),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('$tranactionDate', style: Palette.title),
+                        )),
                         SizedBox(width: 10.0),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$userName', style: Palette.title),
-                        )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$userPhone', style: Palette.title),
-                        )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$orderDateTime', style: Palette.title),
-                        )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$productName', style: Palette.title),
-                        )),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('$price', style: Palette.title),
-                          ),
-                        ),
-                        Container(
-                          child: InkWell(
-                            child: CircleAvatar(
-                              radius: 22.0,
-                              backgroundColor: Colors.amber[50],
-                              child: Icon(Icons.more_vert_outlined),
-                            ),
-                            onTap: () {},
-                          ),
-                        ),
-                        SizedBox(width: 10.0),
+                       
                       ],
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) {
+                   separatorBuilder: (BuildContext context, int index) {
                     return Divider();
                   },
-                )
-              : Container(
+          ) : Container(
                   height: 300.0,
                   child: Center(
                     child: CircularProgressIndicator(),
@@ -278,8 +245,8 @@ class _OrdersState extends State<Orders> {
     );
   }
 
-  Future<String> _getOrderList() async {
-    final String url = Common.ORDER;
+  Future<String> _getRechargeList() async {
+    final String url = Common.RECHARGE;
 
     http.Response response = await http.get(
       Uri.parse(url),
@@ -291,8 +258,8 @@ class _OrdersState extends State<Orders> {
     if (response.statusCode == 200) {
       setState(() {
         isLoading = false;
-        productData = json.decode(response.body);
-        filterlist = productData;
+        rechargeData = json.decode(response.body);
+        filterlist = rechargeData;
       });
     } else {
       setState(() {
@@ -304,4 +271,5 @@ class _OrdersState extends State<Orders> {
 
     return 'Suceess';
   }
+
 }

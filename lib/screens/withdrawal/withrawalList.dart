@@ -200,7 +200,7 @@ class _WithrawalListState extends State<WithrawalList> {
                   itemCount: withdrawalrData != null ? filterlist.length : 0,
                   itemBuilder: (BuildContext context, int index) {
                     var seq = index + 1;
-                    var id = withdrawalrData[index]['_id'];
+                    var id = filterlist[index]['_id'];
 
                     var amount = filterlist[index]['amount'];
                     var status = filterlist[index]['status'] ?? '';

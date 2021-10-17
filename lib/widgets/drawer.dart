@@ -48,7 +48,7 @@ class DrawerMenuItem extends State<DrawerMenu> {
             ),
             accountEmail: null,
             accountName: Text(
-              'Money Stone',
+              'Rupees Plant',
               style: Palette.title,
             ),
           ),

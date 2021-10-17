@@ -112,7 +112,7 @@ class _AddProductState extends State<AddProduct> {
           child: Card(
             margin: EdgeInsets.all(25.0),
             shape: Palette.cardShape,
-            shadowColor: Colors.amber[700],
+            shadowColor: Colors.green[700],
             elevation: 18.0,
             child: Column(
               children: [
@@ -249,7 +249,7 @@ class _AddProductState extends State<AddProduct> {
       elevation: 0.0,
       color: kThemeColor,
       shape: Palette.btnShape,
-      child: Text('Upload', style: Palette.blackBtn),
+      child: Text('Upload', style: Palette.whiteBtn),
     );
   }
 
@@ -281,21 +281,20 @@ class _AddProductState extends State<AddProduct> {
           // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Center(child: image != null ? image : Text('No Image selected...')),
+            child: Center(
+                child: image != null ? image : Text('No Image selected...')),
           ),
           MaterialButton(
             //onPressed: _pickImage,
             onPressed: () async {
               // final _image = await FlutterWebImagePicker.getImage;
-              
+
               // setState(() {
               //   image = _image;
               // });
-              
-              
             },
             child: Text('Pick Image'),
-            color: Colors.amber[50],
+            color: Colors.green[50],
             shape: Palette.btnShape,
             minWidth: 200.0,
             height: 55.0,

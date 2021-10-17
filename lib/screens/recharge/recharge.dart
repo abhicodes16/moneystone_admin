@@ -120,7 +120,7 @@ class _RechargeState extends State<Recharge> {
     return Card(
       margin: EdgeInsets.all(30.0),
       shape: Palette.cardShape,
-      shadowColor: Colors.amber[700],
+      shadowColor: Colors.green[700],
       elevation: 18.0,
       child: Column(
         children: <Widget>[
@@ -128,7 +128,7 @@ class _RechargeState extends State<Recharge> {
             elevation: 0.0,
             margin: EdgeInsets.zero,
             shape: Palette.cardShape,
-            color: Colors.amber[50],
+            color: Colors.green[50],
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Row(
@@ -165,7 +165,7 @@ class _RechargeState extends State<Recharge> {
                     child: InkWell(
                       child: CircleAvatar(
                         radius: 22.0,
-                        backgroundColor: Colors.amber[50],
+                        backgroundColor: Colors.green[50],
                         //child: Icon(Icons.more_vert_outlined),
                       ),
                       onTap: () {},
@@ -176,17 +176,14 @@ class _RechargeState extends State<Recharge> {
               ),
             ),
           ),
-
           SizedBox(height: 15.0),
-
-          !isLoading 
-          ? ListView.separated(
-            primary: false,
+          !isLoading
+              ? ListView.separated(
+                  primary: false,
                   shrinkWrap: true,
                   itemCount: rechargeData != null ? filterlist.length : 0,
                   itemBuilder: (BuildContext context, int index) {
-
-                    var seq = index + 1;  
+                    var seq = index + 1;
                     var id = filterlist[index]['_id'];
 
                     var amount = filterlist[index]['amount'];
@@ -226,14 +223,14 @@ class _RechargeState extends State<Recharge> {
                           child: Text('$tranactionDate', style: Palette.title),
                         )),
                         SizedBox(width: 10.0),
-                       
                       ],
                     );
                   },
-                   separatorBuilder: (BuildContext context, int index) {
+                  separatorBuilder: (BuildContext context, int index) {
                     return Divider();
                   },
-          ) : Container(
+                )
+              : Container(
                   height: 300.0,
                   child: Center(
                     child: CircularProgressIndicator(),
@@ -271,5 +268,4 @@ class _RechargeState extends State<Recharge> {
 
     return 'Suceess';
   }
-
 }

@@ -93,7 +93,7 @@ class _WithrawalDetailsState extends State<WithrawalDetails> {
               margin: EdgeInsets.all(25.0),
               elevation: 18.0,
               shape: Palette.cardShape,
-              shadowColor: Colors.amber[700],
+              shadowColor: Colors.green[700],
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 10.0),
@@ -171,7 +171,7 @@ class _WithrawalDetailsState extends State<WithrawalDetails> {
               margin: EdgeInsets.all(25.0),
               elevation: 18.0,
               shape: Palette.cardShape,
-              shadowColor: Colors.amber[700],
+              shadowColor: Colors.green[700],
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 10.0),
@@ -312,7 +312,7 @@ class _WithrawalDetailsState extends State<WithrawalDetails> {
         elevation: 0.0,
         color: kThemeColor,
         shape: Palette.btnShape,
-        child: Text('Update Withrawal', style: Palette.blackBtn),
+        child: Text('Update Withrawal', style: Palette.whiteBtn),
       ),
     );
   }

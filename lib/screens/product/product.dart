@@ -56,7 +56,7 @@ class _ProductState extends State<Product> {
     return Card(
       margin: EdgeInsets.all(30.0),
       shape: Palette.cardShape,
-      shadowColor: Colors.amber[700],
+      shadowColor: Colors.green[700],
       elevation: 18.0,
       child: Column(
         children: [
@@ -64,7 +64,7 @@ class _ProductState extends State<Product> {
             elevation: 0.0,
             margin: EdgeInsets.zero,
             shape: Palette.cardShape,
-            color: Colors.amber[50],
+            color: Colors.green[50],
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Row(
@@ -76,32 +76,32 @@ class _ProductState extends State<Product> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text('No. ', style: Palette.title),
                       )),
-                  Container(
-                    width: 80.0,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Image', style: Palette.title),
-                  ),
+                  // Container(
+                  //   width: 80.0,
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Text('Image', style: Palette.title),
+                  // ),
                   SizedBox(width: 10.0),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Product Name', style: Palette.title),
                   )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Features', style: Palette.title),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Size', style: Palette.title),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Minimum', style: Palette.title),
-                  )),
+                  // Expanded(
+                  //     child: Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Text('Features', style: Palette.title),
+                  // )),
+                  // Expanded(
+                  //     child: Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Text('Size', style: Palette.title),
+                  // )),
+                  // Expanded(
+                  //     child: Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Text('Minimum', style: Palette.title),
+                  // )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -116,7 +116,7 @@ class _ProductState extends State<Product> {
                     child: InkWell(
                       child: CircleAvatar(
                         radius: 22.0,
-                        backgroundColor: Colors.amber[50],
+                        backgroundColor: Colors.green[50],
                       ),
                       onTap: () {},
                     ),
@@ -137,7 +137,7 @@ class _ProductState extends State<Product> {
                   itemBuilder: (BuildContext context, int index) {
                     var seq = index + 1;
                     var id = productData[index]['_id'];
-                    var image = productData[index]['image'];
+                    //var image = productData[index]['image'];
                     var productName = productData[index]['productName'];
                     var featureOne = productData[index]['featureOne'] ?? '';
                     var featureTwo = productData[index]['featureTwo'] ?? '';
@@ -159,36 +159,36 @@ class _ProductState extends State<Product> {
                             child: Text('$seq', style: Palette.title),
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(8.0),
-                          height: 80.0,
-                          width: 80.0,
-                          child: Image.network('$image'),
-                        ),
+                        // Container(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   height: 80.0,
+                        //   width: 80.0,
+                        //   child: Image.network('$image'),
+                        // ),
                         SizedBox(width: 10.0),
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('$productName', style: Palette.title),
                         )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$featureOne \n$featureTwo',
-                              style: Palette.title),
-                        )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$height H *$width W * $length L',
-                              style: Palette.title),
-                        )),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('$minimum', style: Palette.title),
-                          ),
-                        ),
+                        // Expanded(
+                        //     child: Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Text('$featureOne \n$featureTwo',
+                        //       style: Palette.title),
+                        // )),
+                        // Expanded(
+                        //     child: Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Text('$height H *$width W * $length L',
+                        //       style: Palette.title),
+                        // )),
+                        // Expanded(
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Text('$minimum', style: Palette.title),
+                        //   ),
+                        // ),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -205,7 +205,7 @@ class _ProductState extends State<Product> {
                           child: InkWell(
                             child: CircleAvatar(
                               radius: 22.0,
-                              backgroundColor: Colors.amber[50],
+                              backgroundColor: Colors.green[50],
                               child: Icon(Icons.more_vert_outlined),
                             ),
                             onTap: () {},

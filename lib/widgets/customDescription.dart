@@ -33,7 +33,7 @@ class CustomDescriptionTextField extends StatelessWidget {
             ),
             borderSide: BorderSide(
               //color: Colors.red.withOpacity(0.12),
-              color: Colors.yellow[200],
+              color: Colors.green[200],
             ),
           ),
           enabledBorder: OutlineInputBorder(
@@ -41,11 +41,11 @@ class CustomDescriptionTextField extends StatelessWidget {
               const Radius.circular(10.0),
             ),
             borderSide: BorderSide(
-              color: Colors.yellow[50],
+              color: Colors.green[50],
             ),
           ),
           filled: true,
-          fillColor: Colors.yellow[50],
+          fillColor: Colors.green[50],
         ),
       ),
     );

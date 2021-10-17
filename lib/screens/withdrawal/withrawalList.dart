@@ -128,7 +128,7 @@ class _WithrawalListState extends State<WithrawalList> {
     return Card(
       margin: EdgeInsets.all(30.0),
       shape: Palette.cardShape,
-      shadowColor: Colors.amber[700],
+      shadowColor: Colors.green[700],
       elevation: 18.0,
       child: Column(
         children: [
@@ -136,7 +136,7 @@ class _WithrawalListState extends State<WithrawalList> {
             elevation: 0.0,
             margin: EdgeInsets.zero,
             shape: Palette.cardShape,
-            color: Colors.amber[50],
+            color: Colors.green[50],
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Row(
@@ -179,7 +179,7 @@ class _WithrawalListState extends State<WithrawalList> {
                     child: InkWell(
                       child: CircleAvatar(
                         radius: 22.0,
-                        backgroundColor: Colors.amber[50],
+                        backgroundColor: Colors.green[50],
                         //child: Icon(Icons.more_vert_outlined),
                       ),
                       onTap: () {},
@@ -279,7 +279,7 @@ class _WithrawalListState extends State<WithrawalList> {
                           child: InkWell(
                             child: CircleAvatar(
                               radius: 22.0,
-                              backgroundColor: Colors.amber[50],
+                              backgroundColor: Colors.green[50],
                               child: Icon(Icons.edit),
                             ),
                             onTap: () {

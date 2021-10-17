@@ -49,9 +49,8 @@ class _AddUserState extends State<AddUser> {
 
   var appbarTitle;
   bool inviteVisibility = false;
-  List<dynamic> userData = [];
+  List userData = [];
   bool isLoading;
-
 
   @override
   void initState() {
@@ -66,13 +65,11 @@ class _AddUserState extends State<AddUser> {
       walletController.text = widget.wallet.toString();
       inviteVisibility = true;
       this._getAllInviteUserList(widget.id);
-
     } else {
       appbarTitle = 'Add User';
       inviteVisibility = false;
-    }    
+    }
     isLoading = true;
-    
   }
 
   //---------------- build function ----------------//
@@ -110,7 +107,7 @@ class _AddUserState extends State<AddUser> {
           child: Card(
             margin: EdgeInsets.all(25.0),
             shape: Palette.cardShape,
-            shadowColor: Colors.amber[700],
+            shadowColor: Colors.green[700],
             elevation: 18.0,
             child: Column(
               children: [
@@ -212,7 +209,7 @@ class _AddUserState extends State<AddUser> {
               elevation: 0.0,
               color: kThemeColor,
               shape: Palette.btnShape,
-              child: Text('Update', style: Palette.blackBtn),
+              child: Text('Update', style: Palette.whiteBtn),
             ),
           ),
           SizedBox(width: 20.0),
@@ -245,172 +242,176 @@ class _AddUserState extends State<AddUser> {
       elevation: 0.0,
       color: kThemeColor,
       shape: Palette.btnShape,
-      child: Text('Add', style: Palette.blackBtn),
+      child: Text('Add', style: Palette.whiteBtn),
     );
   }
 
   Widget _allUserCardWidget() {
-    return Card(
-      margin: EdgeInsets.all(30.0),
-      shape: Palette.cardShape,
-      shadowColor: Colors.amber[700],
-      elevation: 18.0,
-      child: Column(
-        children: [
-          Card(
-            elevation: 0.0,
-            margin: EdgeInsets.zero,
-            shape: Palette.cardShape,
-            color: Colors.amber[50],
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Row(
-                children: [
-                  SizedBox(width: 10.0),
-                  Container(
-                      width: 50.0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('No. ', style: Palette.title),
-                      )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Mobile No.', style: Palette.title),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Name', style: Palette.title),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('$kCurrency Device', style: Palette.title),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('$kCurrency Team', style: Palette.title),
-                  )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('$kCurrency Wallet', style: Palette.title),
-                  )),
-                  Container(
-                    child: InkWell(
-                      child: CircleAvatar(
-                        radius: 22.0,
-                        backgroundColor: Colors.amber[50],
-                        //child: Icon(Icons.more_vert_outlined),
+    return Visibility(
+      visible: inviteVisibility,
+      child: Card(
+        margin: EdgeInsets.all(30.0),
+        shape: Palette.cardShape,
+        shadowColor: Colors.green[700],
+        elevation: 18.0,
+        child: Column(
+          children: [
+            Card(
+              elevation: 0.0,
+              margin: EdgeInsets.zero,
+              shape: Palette.cardShape,
+              color: Colors.green[50],
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: Row(
+                  children: [
+                    SizedBox(width: 10.0),
+                    Container(
+                        width: 50.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('No. ', style: Palette.title),
+                        )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Mobile No.', style: Palette.title),
+                    )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Name', style: Palette.title),
+                    )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('$kCurrency Device', style: Palette.title),
+                    )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('$kCurrency Team', style: Palette.title),
+                    )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('$kCurrency Wallet', style: Palette.title),
+                    )),
+                    Container(
+                      child: InkWell(
+                        child: CircleAvatar(
+                          radius: 22.0,
+                          backgroundColor: Colors.green[50],
+                          //child: Icon(Icons.more_vert_outlined),
+                        ),
+                        onTap: () {},
                       ),
-                      onTap: () {},
                     ),
-                  ),
-                  SizedBox(width: 10.0),
-                ],
+                    SizedBox(width: 10.0),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 15.0),
+            SizedBox(height: 15.0),
 
-          //Listview - All user list
-          !isLoading
-              ? ListView.separated(
-                  primary: false,
-                  shrinkWrap: true,
-                  itemCount: userData != null ? userData.length : 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    var seq = index + 1;
-                    var id = userData[index]['_id'];
-                    var phone = userData[index]['phone'];
-                    var name = userData[index]['name'] ?? '';
-                    var password = userData[index]['password'];
-                    var device = userData[index]['device_earnings'] ?? '';
-                    var team = userData[index]['team_earnings'] ?? '';
-                    var wallet = userData[index]['wallet'] ?? '';
-                    return Row(
-                      children: [
-                        SizedBox(width: 10.0),
-                        Container(
-                          width: 50.0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('$seq', style: Palette.title),
-                          ),
-                        ),
-                        Expanded(
+            //Listview - All user list
+            !isLoading
+                ? ListView.separated(
+                    primary: false,
+                    shrinkWrap: true,
+                    itemCount: userData != null ? userData.length : 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      var seq = index + 1;
+                      var id = userData[index]['refUser']['_id'];
+                      var phone = userData[index]['refUser']['phone'];
+                      var name = userData[index]['refUser']['name'] ?? '';
+                      var password = userData[index]['refUser']['password'];
+                      var device =
+                          userData[index]['refUser']['device_earnings'] ?? '';
+                      var team =
+                          userData[index]['refUser']['team_earnings'] ?? '';
+                      var wallet = userData[index]['refUser']['wallet'] ?? '';
+                      return Row(
+                        children: [
+                          SizedBox(width: 10.0),
+                          Container(
+                            width: 50.0,
                             child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$phone', style: Palette.title),
-                        )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$name', style: Palette.title),
-                        )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$device', style: Palette.title),
-                        )),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('$team', style: Palette.title),
-                        )),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('$wallet', style: Palette.title),
-                          ),
-                        ),
-                        Container(
-                          child: InkWell(
-                            child: CircleAvatar(
-                              radius: 22.0,
-                              backgroundColor: Colors.amber[50],
-                              child: Icon(Icons.edit),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('$seq', style: Palette.title),
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AddUser(
-                                      isUpdate: true,
-                                      id: id,
-                                      phone: phone,
-                                      name: name,
-                                      pass: password,
-                                      device: device,
-                                      team: team,
-                                      wallet: wallet,
-                                    ),
-                                  ));
-                            },
                           ),
-                        ),
-                        SizedBox(width: 10.0),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Divider();
-                  },
-                )
-              : Container(
-                  height: 300.0,
-                  child: Center(
-                    child: CircularProgressIndicator(),
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('$phone', style: Palette.title),
+                          )),
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('$name', style: Palette.title),
+                          )),
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('$device', style: Palette.title),
+                          )),
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('$team', style: Palette.title),
+                          )),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('$wallet', style: Palette.title),
+                            ),
+                          ),
+                          Container(
+                            child: InkWell(
+                              child: CircleAvatar(
+                                radius: 22.0,
+                                backgroundColor: Colors.green[50],
+                                child: Icon(Icons.edit),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AddUser(
+                                        isUpdate: true,
+                                        id: id,
+                                        phone: phone,
+                                        name: name,
+                                        pass: password,
+                                        device: device,
+                                        team: team,
+                                        wallet: wallet,
+                                      ),
+                                    ));
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Divider();
+                    },
+                  )
+                : Container(
+                    height: 300.0,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                ),
-          SizedBox(height: 15.0),
-        ],
+            SizedBox(height: 15.0),
+          ],
+        ),
       ),
     );
   }
-
 
   //
   /*--------------- Add user Calling -------------*/
@@ -582,5 +583,4 @@ class _AddUserState extends State<AddUser> {
 
     return 'Suceess';
   }
-
 }

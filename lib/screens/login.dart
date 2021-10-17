@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:moneystone_admin/screens/dashboard.dart';
 import 'package:moneystone_admin/screens/withdrawal/withrawalList.dart';
 import 'package:moneystone_admin/style/Palette.dart';
 import 'package:moneystone_admin/style/constants.dart';
@@ -69,7 +68,7 @@ class _LoginState extends State<Login> {
           child: Card(
             margin: EdgeInsets.all(25.0),
             shape: Palette.cardShape,
-            shadowColor: Colors.amber[700],
+            shadowColor: Colors.green[700],
             elevation: 18.0,
             child: Column(
               children: [
@@ -93,7 +92,7 @@ class _LoginState extends State<Login> {
   Widget _lodinTextWidget() {
     return Container(
       child: Text(
-        'Welcome to Money Stone',
+        'Welcome to Rupees Plant',
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 30.0,
@@ -135,7 +134,7 @@ class _LoginState extends State<Login> {
             ),
             borderSide: BorderSide(
               //color: Colors.red.withOpacity(0.12),
-              color: Colors.yellow[200],
+              color: Colors.green[200],
             ),
           ),
           enabledBorder: OutlineInputBorder(
@@ -143,11 +142,11 @@ class _LoginState extends State<Login> {
               const Radius.circular(10.0),
             ),
             borderSide: BorderSide(
-              color: Colors.yellow[50],
+              color: Colors.green[50],
             ),
           ),
           filled: true,
-          fillColor: Colors.yellow[50],
+          fillColor: Colors.green[50],
         ),
       ),
     );
@@ -175,7 +174,7 @@ class _LoginState extends State<Login> {
             ),
             borderSide: BorderSide(
               //color: Colors.red.withOpacity(0.12),
-              color: Colors.yellow[200],
+              color: Colors.green[200],
             ),
           ),
           enabledBorder: OutlineInputBorder(
@@ -183,11 +182,11 @@ class _LoginState extends State<Login> {
               const Radius.circular(10.0),
             ),
             borderSide: BorderSide(
-              color: Colors.yellow[50],
+              color: Colors.green[50],
             ),
           ),
           filled: true,
-          fillColor: Colors.yellow[50],
+          fillColor: Colors.green[50],
           prefixIcon: Icon(
             Icons.lock_outline,
             color: Colors.black,
@@ -236,7 +235,7 @@ class _LoginState extends State<Login> {
         elevation: 0.0,
         color: kThemeColor,
         shape: Palette.btnShape,
-        child: Text('SING IN', style: Palette.blackBtn),
+        child: Text('SING IN', style: Palette.whiteBtn),
       ),
     );
   }
